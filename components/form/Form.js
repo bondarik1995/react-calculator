@@ -1,13 +1,9 @@
 import React from 'react';
 
-import { Buttons } from '../buttons';
-
-const operations = ['+', '-', '/', '*'];
 const numbers = [];
-for (let i = 1; i < 10; i++) {
+for (let i = 0; i < 10; i++) {
   numbers.push(i);
 }
-const resultButtons = ['C', '=', 'S'];
 
 export class Form extends React.Component {
   constructor() {
@@ -15,24 +11,81 @@ export class Form extends React.Component {
     
     this.state = {
       inputValue: '',
+      errorMessage: '',
+      saveValue: ''
     };
 
     this.change = this.change.bind(this);
+    this.getResult = this.getResult.bind(this);
+    this.clear = this.clear.bind(this);
+    this.save = this.save.bind(this);
+    this.load = this.load.bind(this);
+    this.reset = this.reset.bind(this);
   }
 
-  change(value) {
-    this.setState({ inputValue: this.state.inputValue + value });
+  change(e) {
+    e.preventDefault();
+    this.setState({ inputValue: this.state.inputValue + e.target.textContent, errorMessage: '' });
+  }
+
+  getResult(e) {
+    e.preventDefault();
+    var inputValue = eval(this.state.inputValue);
+    var errorMessage = '';
+    if (inputValue === Infinity) {
+      inputValue = '';
+      errorMessage = 'На ноль делить нельзя';
+    }
+    this.setState({ inputValue, errorMessage });
+  }
+
+  clear(e) {
+    e.preventDefault();
+    this.setState({ inputValue: '', errorMessage: '' });
+  }
+
+  save(e) {
+    e.preventDefault();
+    this.setState({ saveValue: this.state.inputValue });
+  }
+
+  load(e) {
+    e.preventDefault();
+    this.setState({ inputValue: this.state.saveValue, errorMessage: '' });
+  }
+
+  reset(e) {
+    e.preventDefault();
+    this.setState({ inputValue: '', saveValue: '', errorMessage: '' });
   }
 
   render() {
-    const { inputValue } = this.state;
+    const { inputValue, saveValue, errorMessage } = this.state;
 
     return (
       <form action="">
-        <input type="text" name="result" disabled="disabled" value={inputValue} />
-        <Buttons array={numbers} changeValue={this.change} />
-        <Buttons array={operations} changeValue={this.change} />
-        <Buttons array={resultButtons} changeValue={this.change} />
+        <input className="result-input" type="text" name="result" disabled="disabled" value={inputValue} />
+        {(errorMessage !== '') ? errorMessage : ''}
+        <div class="row-buttons">
+          {numbers.map((item, i) => {
+            return (<button key={i} className="btn" onClick={this.change}>{item}</button>)
+          })}
+        </div>
+        <div class="row-buttons">
+          <button className="btn" onClick={this.change}>+</button>
+          <button className="btn" onClick={this.change}>-</button>
+          <button className="btn" onClick={this.change}>/</button>
+          <button className="btn" onClick={this.change}>*</button>
+        </div>
+        <div class="row-buttons">
+          <button className="btn" onClick={this.clear}>C</button>
+          <button className="btn" onClick={this.getResult}>=</button>
+        </div>
+        <div class="row-buttons">
+          <button className="btn" onClick={this.save} disabled={(inputValue === '') ? 'disabled' : ''}>S</button>
+          <button className="btn" onClick={this.reset} disabled={(saveValue === '') ? 'disabled' : ''}>R</button>
+          <button className="btn" onClick={this.load} disabled={(saveValue === '') ? 'disabled' : ''}>L</button>
+        </div>
       </form>
     );
   }

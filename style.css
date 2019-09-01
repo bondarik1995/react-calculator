@@ -1,3 +1,96 @@
 h1, p {
   font-family: Lato;
 }
+
+.btn {
+  width: 75px;
+  padding: 5px 28px;
+  margin: 5px;
+
+  font-size: 16px;
+  text-align: center;
+  color: black;
+
+  border: 2px solid black;
+  background-color: white;
+
+  cursor: pointer;
+}
+
+/* Green */
+.success {
+  border-color: #4CAF50;
+  color: green;
+}
+
+.success:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Blue */
+.info {
+  border-color: #2196F3;
+  color: dodgerblue
+}
+
+.info:hover {
+  background: #2196F3;
+  color: white;
+}
+
+/* Orange */
+.warning {
+  border-color: #ff9800;
+  color: orange;
+}
+
+.warning:hover {
+  background: #ff9800;
+  color: white;
+}
+
+/* Red */
+.danger {
+  border-color: #f44336;
+  color: red
+}
+
+.danger:hover {
+  background: #f44336;
+  color: white;
+}
+
+/* Gray */
+.default {
+  border-color: #e7e7e7;
+  color: black;
+}
+
+.default:hover {
+  background: #e7e7e7;
+}
+
+button:disabled {
+  opacity: 0.5;
+
+  cursor: default;
+}
+
+.row-buttons {
+  width: 255px;
+  
+  border-bottom: 1px solid red;
+}
+
+.result-input {
+  width: 245px;
+  padding: 5px;
+  margin: 5px;
+  box-sizing: border-box;
+
+  font-size: 16px;
+
+  border: 2px solid #000000;
+  background-color: #ffffff;
+}
