@@ -5,13 +5,6 @@ import { Form } from './components/form';
 import './style.css';
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      name: 'React'
-    };
-  }
-
   render() {
     return (
       <div>
